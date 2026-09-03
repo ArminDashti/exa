@@ -1,0 +1,14 @@
+.env
+tmp/
+*.exe
+*.dll
+*.so
+*.dylib
+.DS_Store
+# github-commit-push-all: large files (>5MB) â€” auto-managed
+
+tmp/server.exe
+
+
+# Auto-managed large files (>5MB)
+# large files (>5MB) - do not commit

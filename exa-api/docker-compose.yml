@@ -1,0 +1,53 @@
+name: exa
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: exa-pgsql
+    restart: "no"
+    environment:
+      POSTGRES_USER: exa
+      POSTGRES_PASSWORD: exa
+      POSTGRES_DB: exa
+    volumes:
+      - exa_pgdata:/var/lib/postgresql/data
+    expose:
+      - "5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U exa -d exa"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - app_net
+
+  exa-api:
+    image: ${IMAGE_TAG:-exa-api:latest}
+    container_name: exa-api
+    restart: "no"
+    environment:
+      ADDR: ":${INTERNAL_PORT:-8080}"
+      DATABASE_URL: postgres://exa:exa@postgres:5432/exa?sslmode=disable
+      JWT_SECRET: ${JWT_SECRET:-dev-jwt-secret-change-me}
+      MIGRATIONS_DIR: /migrations
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5197,http://127.0.0.1:5197}
+    expose:
+      - "${INTERNAL_PORT:-8080}"
+    ports:
+      - target: ${INTERNAL_PORT:-8080}
+        published: ${PUBLISH_PORT-8197}
+        protocol: tcp
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - app_net
+
+volumes:
+  exa_pgdata:
+    name: exa_pgdata
+
+networks:
+  app_net:
+    name: ${DOCKER_NETWORK:-exa-net}
+    external: true
