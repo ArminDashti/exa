@@ -1,1 +1,4 @@
 *.exe# === auto: large files (>5MB) ===
+*.exe
+
+# === commit-push-to-github large files (auto) ===
