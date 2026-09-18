@@ -2,3 +2,5 @@
 *.exe
 
 # === commit-push-to-github large files (auto) ===
+
+# commit-push-to-github: large files (>5MB) auto-ignored
