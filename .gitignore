@@ -11,3 +11,25 @@
 # Auto-managed: files larger than 5 MB
 .gitnexus/lbug
 .gitnexus/parsedfile-cache/90fe3e5ec82351c586f58bf153337a44a9fecc4f72f88400927005d6b5276b0f/90fe3e5ec82351c586f58bf153337a44a9fecc4f72f88400927005d6b5276b0f-w1-13.v8
+
+# hygiene
+node_modules/
+dist/
+build/
+bin/
+obj/
+.venv/
+__pycache__/
+*.log
+logs/
+.env
+.env.*
+*.tsbuildinfo
+.cache/
+coverage/
+*.zip
+*.7z
+graphify-out/
+.gitnexus/
+!.env.example
+/.cursor/skills/caveman-setup/SKILL.md
